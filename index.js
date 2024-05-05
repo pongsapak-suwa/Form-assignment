@@ -37,6 +37,9 @@ const catchAsync = require('./utils/catchAsync');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controller/errorController');
 
+app.use('/api/v1/refresh-token', require('./routes/refreshtokenRoutes.js'));
+app.use('/api/v1/auth', require('./route/authRoute.js'));
+
 app.use(
     '*',
     catchAsync(async (req, res, next) => {
