@@ -195,19 +195,19 @@ module.exports = function(sequelize, Sequelize ) {
         updatedAt: 'updatedAt'
       });
 
-      const Student_Class = sequelize.define('Student_Class', {
+      const User_Class = sequelize.define('User_Class', {
         id:{
             allowNull: false,
             autoIncrement:true,
             primaryKey: true,
             type: DataTypes.INTEGER,
           },
-          studentId: {
+          userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-              model: 'Student', // References the Students table
-              key: 'id',      // References the id column in the Students table
+              model: 'User', // References the User table
+              key: 'id',      // References the id column in the User table
             },
             onUpdate: 'CASCADE', // Optional: define action on update
             onDelete: 'CASCADE', // Optional: define action on delete
@@ -223,41 +223,7 @@ module.exports = function(sequelize, Sequelize ) {
             onDelete: 'CASCADE', // Optional: define action on delete
           },
       }, {
-        tableName: 'Student_Class',
-        timestamps: true,
-        createdAt: 'createdAt',
-        updatedAt: 'updatedAt'
-      });
-
-      const Teacher_Class = sequelize.define('Teacher_Class', {
-        id:{
-            allowNull: false,
-            autoIncrement:true,
-            primaryKey: true,
-            type: DataTypes.INTEGER,
-          },
-          teacherId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'Teacher', // References the Teachers table
-                key: 'id',      // References the id column in the Teachers table
-              },
-            onUpdate: 'CASCADE', // Optional: define action on update
-            onDelete: 'CASCADE', // Optional: define action on delete
-          },
-          id_class: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-              model: 'Class', // References the Class table
-              key: 'id',      // References the id column in the Class table
-            },
-            onUpdate: 'CASCADE', // Optional: define action on update
-            onDelete: 'CASCADE', // Optional: define action on delete
-          },
-      }, {
-        tableName: 'Teacher_Class',
+        tableName: 'User_Class',
         timestamps: true,
         createdAt: 'createdAt',
         updatedAt: 'updatedAt'
@@ -474,8 +440,7 @@ module.exports = function(sequelize, Sequelize ) {
         Student,
         Teacher,
         Class,
-        Student_Class,
-        Teacher_Class,
+        User_Class,
         Post,
         Comment,
         Form,

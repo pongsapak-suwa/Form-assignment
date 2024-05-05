@@ -220,58 +220,19 @@ module.exports = {
       }
     });
 
-    await QueryInterface.createTable("Student_Class",{
+    await QueryInterface.createTable("User_Class",{
       id:{
         allowNull: false,
         autoIncrement:true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      studentId: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Student', // References the Students table
-          key: 'id',      // References the id column in the Students table
-        },
-        onUpdate: 'CASCADE', // Optional: define action on update
-        onDelete: 'CASCADE', // Optional: define action on delete
-      },
-      id_class: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Class', // References the Class table
-          key: 'id',      // References the id column in the Class table
-        },
-        onUpdate: 'CASCADE', // Optional: define action on update
-        onDelete: 'CASCADE', // Optional: define action on delete
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
-      }
-    });
-
-    await QueryInterface.createTable("Teacher_Class",{
-      id:{
-        allowNull: false,
-        autoIncrement:true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
-      teacherId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Teacher', // References the Teachers table
-          key: 'id',      // References the id column in the Teachers table
+          model: 'User', // References the User table
+          key: 'id',      // References the id column in the User table
         },
         onUpdate: 'CASCADE', // Optional: define action on update
         onDelete: 'CASCADE', // Optional: define action on delete
@@ -535,8 +496,7 @@ module.exports = {
       await QueryInterface.dropTable("Form"),
       await QueryInterface.dropTable("Comment"),
       await QueryInterface.dropTable("Post"),
-      await QueryInterface.dropTable("Teacher_Class"),
-      await QueryInterface.dropTable("Student_Class"),
+      await QueryInterface.dropTable("User_Class"),
       await QueryInterface.dropTable("Class"),
       await QueryInterface.dropTable("Teacher"),
       await QueryInterface.dropTable("Student"),

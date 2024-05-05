@@ -2,9 +2,9 @@ require('dotenv').config()
 
 
 const ROLES_LIST = {
-    'admin': process.env.ROLES_ADMIN,
-    'teacher':  process.env.ROLES_TEACHER,
-    'student': process.env.ROLES_STUDENT
+    'Admin': process.env.ROLES_ADMIN,
+    'Teacher':  process.env.ROLES_TEACHER,
+    'Student': process.env.ROLES_STUDENT
 }
 
 const findRoleByPriority = (priority) => {
@@ -16,8 +16,17 @@ const findRoleByPriority = (priority) => {
     return null; 
 };
 
+const findPriorityByRole = (roleName) => {
+    for (const [role, priority] of Object.entries(ROLES_LIST)) {
+        if (role === roleName) {
+            return priority;
+        }
+    }
+    return null; 
+};
 
 module.exports =  {
     ROLES_LIST,
-    findRoleByPriority
+    findRoleByPriority,
+    findPriorityByRole
 };

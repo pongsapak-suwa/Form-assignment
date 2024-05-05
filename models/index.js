@@ -21,8 +21,7 @@ db.User = definetable(sequelize , Sequelize).User;
 db.Student = definetable(sequelize , Sequelize).Student;
 db.Teacher = definetable(sequelize , Sequelize).Teacher;
 db.Class = definetable(sequelize , Sequelize).Class;
-db.Student_Class = definetable(sequelize , Sequelize).Student_Class;
-db.Teacher_Class = definetable(sequelize , Sequelize).Teacher_Class;
+db.User_Class = definetable(sequelize , Sequelize).User_Class;
 db.Post = definetable(sequelize , Sequelize).Post;
 db.Comment = definetable(sequelize , Sequelize).Comment;
 db.Form = definetable(sequelize , Sequelize).Form;
@@ -34,11 +33,8 @@ db.User.hasOne(db.Student, { foreignKey: 'userId' });
 db.Teacher.belongsTo(db.User, { foreignKey: 'userId' , onDelete: 'CASCADE'});
 db.User.hasOne(db.Teacher, { foreignKey: 'userId' });
 
-db.Student.belongsToMany(db.Class, { through: db.Student_Class , foreignKey: 'studentId' ,onDelete: 'CASCADE'} );
-db.Class.belongsToMany(db.Student, { through: db.Student_Class , foreignKey: 'id_class' ,onDelete: 'CASCADE'} );
-
-db.Teacher.belongsToMany(db.Class, { through: db.Teacher_Class , foreignKey: 'teacherId' ,onDelete: 'CASCADE'} );
-db.Class.belongsToMany(db.Teacher, { through: db.Teacher_Class , foreignKey: 'id_class' ,onDelete: 'CASCADE'} );
+db.User.belongsToMany(db.Class, { through: db.User_Class , foreignKey: 'userId' ,onDelete: 'CASCADE'} );
+db.Class.belongsToMany(db.User, { through: db.User_Class , foreignKey: 'id_class' ,onDelete: 'CASCADE'} );
 
 db.Post.belongsTo(db.Class, { foreignKey: 'id_class' ,onDelete: 'CASCADE'});
 db.Class.hasMany(db.Post, { foreignKey: 'id_class' });

@@ -14,7 +14,7 @@ const PORT = process.env.APP_PORT || 4000;
 app.use(express.json());
 app.use(helmet());
 app.use(morgan('dev'));
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true, limit: "1kb" }));
@@ -37,8 +37,11 @@ const catchAsync = require('./utils/catchAsync');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controller/errorController');
 
-app.use('/api/v1/refresh-token', require('./routes/refreshtokenRoutes.js'));
-app.use('/api/v1/auth', require('./route/authRoute.js'));
+app.use('/api/v1/refresh-token', require('./route/refreshtokenRoutes.js'));
+app.use('/api/v1/auth', require('./route/authRoutes.js'));
+app.use('/api/v1/user', require('./route/userRoutes.js'));
+app.use('/api/v1/class', require('./route/classRoutes.js'))
+
 
 app.use(
     '*',
