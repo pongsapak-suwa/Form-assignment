@@ -20,7 +20,7 @@ const comCreate = asyncHandler(async (req,res) =>{
     });
   
   
-    res.status(200).json({ message: "Comment created successfully", class: newClass });
+    res.status(200).json({ message: "Comment created successfully" });
   });
 
   const comUpdate = asyncHandler(async (req,res) =>{
@@ -40,7 +40,7 @@ const comCreate = asyncHandler(async (req,res) =>{
     }
   );
   
-    res.status(200).json({ message: "Comment update successfully", class: newClass });
+    res.status(200).json({ message: "Comment update successfully"});
   });
 
   const comDel = asyncHandler(async (req,res) =>{
@@ -57,7 +57,7 @@ const comCreate = asyncHandler(async (req,res) =>{
         where: {id: id,userId: IDuser,id_post:postId}
     })
   
-    res.status(200).json({ message: "Comment delete successfully", class: newClass });
+    res.status(200).json({ message: "Comment delete successfully" });
   });
 
   module.exports = {

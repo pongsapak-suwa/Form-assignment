@@ -53,7 +53,7 @@ const classInfo = asyncHandler(async (req,res) =>{
             required: true,
             },{
                 module: db.Post,
-                attributes:["created_by","title","description"],
+                attributes:["id","created_by","title","description"],
                 include:{
                   model: db.Comment,
                   attributes:["id","description"],
@@ -64,7 +64,10 @@ const classInfo = asyncHandler(async (req,res) =>{
                 },
             }]
     })
-
+    if(!classInfo){
+      res.status(404).json({message: "user not in class"})
+    }
+    
     const Allpost = classInfo.Posts;
     return res.status(200).json({
         name: classInfo.name,
@@ -97,7 +100,7 @@ const classCreate = asyncHandler(async (req,res) =>{
     await newClass.addUsers(users);
   }
 
-  res.status(200).json({ message: "Class created successfully", class: newClass });
+  res.status(200).json({ message: "Class created successfully" });
 });
 
 const classUpdate = asyncHandler(async (req,res) =>{
@@ -134,7 +137,7 @@ const classUpdate = asyncHandler(async (req,res) =>{
     await newClass.removeUsers(users);
   }
 
-  res.status(200).json({ message: "Class update successfully", class: newClass });
+  res.status(200).json({ message: "Class update successfully" });
 });
 
 const classDel = asyncHandler(async (req,res) =>{
@@ -150,7 +153,7 @@ const classDel = asyncHandler(async (req,res) =>{
     where: { id: classId },
   })
 
-  res.status(200).json({ message: "Class delete successfully", class: newClass });
+  res.status(200).json({ message: "Class delete successfully"});
 });
 
 module.exports = {

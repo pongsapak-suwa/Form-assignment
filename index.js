@@ -7,6 +7,7 @@ const morgan = require("morgan")
 const bodyParser = require("body-parser")
 const cors = require("cors")
 const rateLimit = require('express-rate-limit');
+const setupSwagger = require('./swagger');
 
 
 const PORT = process.env.APP_PORT || 4000;
@@ -40,10 +41,12 @@ const globalErrorHandler = require('./controller/errorController');
 app.use('/api/v1/refresh-token', require('./route/refreshtokenRoutes.js'));
 app.use('/api/v1/auth', require('./route/authRoutes.js'));
 app.use('/api/v1/user', require('./route/userRoutes.js'));
-app.use('/api/v1/class', require('./route/classRoutes.js'))
-app.use('/api/v1/com', require('./route/commentsRoutes.js'))
+app.use('/api/v1/class', require('./route/classRoutes.js'));
+app.use('/api/v1/com', require('./route/commentsRoutes.js'));
+app.use('/api/v1/post', require('./route/postRoutes.js'));
+app.use('/api/v1/form', require('./route/formRoutes.js'));
 
-
+setupSwagger(app);
 
 app.use(
     '*',
