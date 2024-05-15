@@ -54,6 +54,14 @@ const classInfo = asyncHandler(async (req,res) =>{
             },{
                 module: db.Post,
                 attributes:["created_by","title","description"],
+                include:{
+                  model: db.Comment,
+                  attributes:["id","description"],
+                  include:{
+                    model: db.User,
+                    attributes: ["email"],
+                  }
+                },
             }]
     })
 
@@ -66,7 +74,89 @@ const classInfo = asyncHandler(async (req,res) =>{
     })
 })
 
+const classCreate = asyncHandler(async (req,res) =>{
+  const IDuser = req.i;
+  const { name,section,description ,userInclass} = req.body
+
+  if (!IDuser) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+  const newClass = await db.Class.create({
+    name: name,
+    section: section,
+    description: description,
+  });
+
+  if (userInclass && userInclass.length > 0) {
+    const userIDs = userInclass.map((user) => user.id);
+    const users = await db.User.findAll({
+      where: { id: userIDs },
+    });
+    await newClass.addUsers(users);
+  }
+
+  res.status(200).json({ message: "Class created successfully", class: newClass });
+});
+
+const classUpdate = asyncHandler(async (req,res) =>{
+  const IDuser = req.i;
+  const { name,section,description ,userInclass,userOutclass} = req.body
+  const { classId } = req.params
+  if (!IDuser) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+  const newClass = await db.Class.update({
+    name: name,
+    section: section,
+    description: description,
+  },{
+    where: {id: classId}
+  }
+);
+
+  if (userInclass && userInclass.length > 0) {
+    const userIDs = userInclass.map((user) => user.id);
+    const users = await db.User.findAll({
+      where: { id: userIDs },
+    });
+    await newClass.addUsers(users);
+  }
+
+  if (userOutclass && userOutclass.length > 0) {
+    const userIDs = userOutclass.map((user) => user.id);
+    const users = await db.User.findAll({
+      where: { id: userIDs },
+    });
+    await newClass.removeUsers(users);
+  }
+
+  res.status(200).json({ message: "Class update successfully", class: newClass });
+});
+
+const classDel = asyncHandler(async (req,res) =>{
+  const IDuser = req.i;
+  const { classId } = req.params
+
+  if (!IDuser) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+  await db.Class.destroy({
+    where: { id: classId },
+  })
+
+  res.status(200).json({ message: "Class delete successfully", class: newClass });
+});
+
 module.exports = {
     allClass,
-    classInfo
+    classInfo,
+    classCreate,
+    classUpdate,
+    classDel
 }

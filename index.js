@@ -41,6 +41,8 @@ app.use('/api/v1/refresh-token', require('./route/refreshtokenRoutes.js'));
 app.use('/api/v1/auth', require('./route/authRoutes.js'));
 app.use('/api/v1/user', require('./route/userRoutes.js'));
 app.use('/api/v1/class', require('./route/classRoutes.js'))
+app.use('/api/v1/com', require('./route/commentsRoutes.js'))
+
 
 
 app.use(
